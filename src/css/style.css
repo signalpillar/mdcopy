@@ -1,0 +1,65 @@
+/* H3xA */
+
+.H3xA_cont {
+  width: 100vw;
+  height: 0px;
+  position: relative;
+  z-index: 2147483647;
+}
+
+.H3xA_msgPopUpCont,
+.H3xA_msgPopUpContError {
+  /* placement */
+  position: fixed;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* size */
+  width: auto;
+  height: auto;
+
+  /* decoration */
+  border: 2px solid white;
+  background: radial-gradient(50% 50% at 50% 50%, #000000 67.19%, rgba(0, 0, 0, 0.86) 100%);
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  /* text decoration */
+  color: white;
+  font-size: 20px;
+  padding: 4px 10px 6px 10px;
+  font-weight: bold;
+  font-family: Raleway, Roboto, sans-serif;
+}
+
+.H3xA_msgPopUpContError {
+  background: radial-gradient(50% 50% at 50% 50%, #FF0000 18.75%, rgba(255, 84, 84, 0.86) 100%);
+}
+
+/* effects */
+.H3xA_visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.1s linear;
+}
+
+.H3xA_hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.2s, opacity 0.2s linear;
+}
+
+@media (max-height: 700px) {
+  .H3xA_msgPopUpCont,
+  .H3xA_msgPopUpContError {
+    top: 200px;
+  }
+}
+
+@media (max-height: 500px) {
+  .H3xA_msgPopUpCont,
+  .H3xA_msgPopUpContError {
+    top: 100px;
+  }
+}

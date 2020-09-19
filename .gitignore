@@ -1,0 +1,7 @@
+node_modules/
+build/
+
+src/background.js
+src/script.js
+
+mdcopy.zip
