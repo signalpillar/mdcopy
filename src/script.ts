@@ -6,16 +6,15 @@ interface state {
 }
 
 const __chrome_extension_mdcopy = (callback) => {
-  if (document.readyState != "loading") callback();
-  else document.addEventListener("DOMContentLoaded", callback);
-}
+  if (document.readyState != 'loading') callback();
+  else document.addEventListener('DOMContentLoaded', callback);
+};
 
 __chrome_extension_mdcopy(() => {
-
   // get updated url and title bcz SPAs
   function state(): state {
     const url = location.href;
-    const title = () => document.title
+    const title = () => document.title;
     return { url, title };
   }
 
@@ -27,7 +26,10 @@ __chrome_extension_mdcopy(() => {
   // append msg container to body
   let msgContainer = `<div class="${p}msgPopUpCont ${p}hidden"></div><div class="${p}msgPopUpContError ${p}hidden"></div>`;
 
-  body.insertAdjacentHTML('beforeend', `<div class="${p}cont">${msgContainer}</div>`);
+  body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="${p}cont">${msgContainer}</div>`
+  );
 
   // ui effects
   function toggleFade(contClass: string) {
@@ -71,22 +73,20 @@ __chrome_extension_mdcopy(() => {
 
   function copyToClipboard(content: string = '', msg: string) {
     try {
-      navigator.clipboard.writeText(content)
-      .then(() => {
-        notifyUser(msg)
-      })
+      navigator.clipboard.writeText(content).then(() => {
+        notifyUser(msg);
+      });
     } catch (err) {
-        /* Copy to clipboard is available in https protocol only */
-        notifyUser("not permitted on http", true)
-        console.log('Something went wrong', err);
-    };
+      /* Copy to clipboard is available in https protocol only */
+      notifyUser('not permitted on http', true);
+      console.log('Something went wrong', err);
+    }
   }
-
 
   function getLink(mode: mode, { url, title }: state) {
     let formattedTitle = formatTitle(title(), mode);
 
-    let msgToUser = 'url copied'
+    let msgToUser = 'url copied';
     if (mode === 'org-mode') {
       url = `[[${url}][${formattedTitle}]]`;
       msgToUser = 'org-link copied';
@@ -99,15 +99,10 @@ __chrome_extension_mdcopy(() => {
 
   /* jobs to run on keybindings */
   chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
-
     const mode: mode = message.action;
-    getLink(mode, state())
+    getLink(mode, state());
 
     // bg script requires a response
-    sendResponse("noop");
+    sendResponse('noop');
   });
-
 });
-
-
-
