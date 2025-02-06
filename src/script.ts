@@ -1,4 +1,4 @@
-type mode = 'url' | 'org-mode' | 'markdown';
+type mode = "url" | "org-mode" | "markdown";
 
 interface state {
   url: string;
@@ -6,8 +6,8 @@ interface state {
 }
 
 const __chrome_extension_mdcopy = (callback) => {
-  if (document.readyState != 'loading') callback();
-  else document.addEventListener('DOMContentLoaded', callback);
+  if (document.readyState != "loading") callback();
+  else document.addEventListener("DOMContentLoaded", callback);
 };
 
 __chrome_extension_mdcopy(() => {
@@ -19,7 +19,7 @@ __chrome_extension_mdcopy(() => {
   }
 
   // some random css prefix
-  const p = 'H3xA_';
+  const p = "H3xA_";
 
   const { body } = document;
 
@@ -27,8 +27,8 @@ __chrome_extension_mdcopy(() => {
   let msgContainer = `<div class="${p}msgPopUpCont ${p}hidden"></div><div class="${p}msgPopUpContError ${p}hidden"></div>`;
 
   body.insertAdjacentHTML(
-    'beforeend',
-    `<div class="${p}cont">${msgContainer}</div>`
+    "beforeend",
+    `<div class="${p}cont">${msgContainer}</div>`,
   );
 
   // ui effects
@@ -53,46 +53,50 @@ __chrome_extension_mdcopy(() => {
       el.textContent = msg;
       fadeEffect(elSelector, 1000);
     } else {
-      alert('unknown error occurred');
-      console.error('unknown error occurred');
+      alert("unknown error occurred");
+      console.error("unknown error occurred");
     }
   }
 
   // replace any brackets or parens that might break the format
-  function formatTitle(title: string, mode: mode) {
+  function formatTitle(title: string, mode?: mode) {
     let newTitle = title;
-    if (mode === 'org-mode') {
-      newTitle = newTitle.replace('[', '(').replace(']', ')');
-    } else if (mode === 'markdown') {
-      newTitle = newTitle.replace('[', ' ').replace(']', ' ');
-      newTitle = newTitle.replace('(', ' ').replace(')', ' ');
+    if (mode === "org-mode") {
+      newTitle = newTitle.replace("[", "(").replace("]", ")");
+    } else if (mode === "markdown") {
+      newTitle = newTitle.replace("[", " ").replace("]", " ");
+      newTitle = newTitle.replace("(", " ").replace(")", " ");
     }
+
+    newTitle = newTitle.replace("#", "H:");
 
     return newTitle;
   }
 
-  function copyToClipboard(content: string = '', msg: string) {
+  function copyToClipboard(content: string = "", msg: string) {
     try {
       navigator.clipboard.writeText(content).then(() => {
         notifyUser(msg);
       });
     } catch (err) {
       /* Copy to clipboard is available in https protocol only */
-      notifyUser('not permitted on http', true);
-      console.log('Something went wrong', err);
+      notifyUser("not permitted on http", true);
+
+      console.log("Something went wrong", err);
     }
   }
 
   function getLink(mode: mode, { url, title }: state) {
-    let formattedTitle = formatTitle(title(), mode);
+    const formattedTitle = formatTitle(title());
+    const urlDomain = new URL(url).hostname;
 
-    let msgToUser = 'url copied';
-    if (mode === 'org-mode') {
-      url = `[[${url}][${formattedTitle}]]`;
-      msgToUser = 'org-link copied';
-    } else if (mode === 'markdown') {
-      url = `[${formattedTitle}](${url})`;
-      msgToUser = 'markdown-link copied';
+    let msgToUser = "url copied";
+    if (mode === "org-mode") {
+      url = `"${formattedTitle}" [[${url}][on ${urlDomain}]]`;
+      msgToUser = "org-link copied";
+    } else if (mode === "markdown") {
+      url = `"${formattedTitle}" [on ${urlDomain}](${url})`;
+      msgToUser = "markdown-link copied";
     }
     copyToClipboard(url, msgToUser);
   }
@@ -103,6 +107,6 @@ __chrome_extension_mdcopy(() => {
     getLink(mode, state());
 
     // bg script requires a response
-    sendResponse('noop');
+    sendResponse("noop");
   });
 });

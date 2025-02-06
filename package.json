@@ -1,7 +1,7 @@
 {
   "name": "mdcopy",
-  "author": "panoskouf",
-  "version": "0.0.1",
+  "author": "signalpillar",
+  "version": "0.2.1",
   "description": "Copy the current page link in a markdown or org-mode format to clipboard with title included. The title is generated based on the document title of the current page, which is relevant 99% of the time.",
   "main": "background.js",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/panoskouf/mdcopy.git"
+    "url": "git+https://github.com/signalpillar/mdcopy.git"
   },
   "bugs": {
-    "url": "https://github.com/panoskouf/mdcopy/issues"
+    "url": "https://github.com/signalpillar/mdcopy/issues"
   },
-  "homepage": "https://github.com/panoskouf/mdcopy#readme",
+  "homepage": "https://github.com/signalpillar/mdcopy#readme",
   "devDependencies": {
-    "@types/chrome": "0.0.122",
-    "typescript": "^4.0.2"
+    "@types/chrome": "0.0.301",
+    "typescript": "^5.7.3"
   }
 }

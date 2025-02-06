@@ -1,3 +1,9 @@
+# It's a fork of [panoskouf/mdcopy](https://github.com/panoskouf/mdcopy)
+
+The only difference is in how the link text is formatted. Instead of using the
+entire title as the link text, this extension places the link at the end of the
+copied title, using the domain as the link text.
+
 # mdcopy
 
 this is the code for the [mdcopy chrome extension](https://chrome.google.com/webstore/detail/mdcopy/jphaecfkoakhmnhpgigacoiagmhcpjnb?hl=en)

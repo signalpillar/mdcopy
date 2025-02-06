@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "mdcopy",
   "description": "Copy the current page link in a markdown or org-mode format to clipboard with title included.",
-  "version": "0.02",
+  "version": "0.2.4",
   "icons": {
     "32": "assets/icon32.png",
     "64": "assets/icon64.png",
